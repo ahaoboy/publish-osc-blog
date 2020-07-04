@@ -1,39 +1,62 @@
 {
-  "name": "osc-blog-publish",
-  "displayName": "osc-blog-publish",
+  "name": "publish-osc-blog",
+  "displayName": "publish-osc-blog",
   "description": "",
   "version": "0.0.1",
   "engines": {
     "vscode": "^1.46.0"
   },
+  "repository": "https://github.com/ahaoboy/publish-osc-blog.git",
   "publisher": "someone",
   "categories": [
     "Other"
   ],
   "activationEvents": [
-    "onCommand:osc-blog-publish.helloWorld",
+    "onCommand:publish-osc-blog.publish",
     "onLanguage:markdown"
   ],
-  "main": "./extension.js",
+  "main": "./src/extension.js",
   "contributes": {
     "commands": [
       {
-        "command": "osc-blog-publish.helloWorld",
-        "title": "Hello World"
+        "command": "publish-osc-blog.publish",
+        "title": "publishBlog"
       }
     ],
+    "menus": {
+      "commandPalette": [
+        {
+          "command": "publish-osc-blog.publish",
+          "when": "editorLangId == markdown"
+        }
+      ],
+      "editor/context": [
+        {
+          "when": "editorLangId == markdown",
+          "command": "publish-osc-blog.publish",
+          "group": "navigation"
+        }
+      ],
+      "explorer/context": [
+        {
+          "when": "editorLangId == markdown",
+          "command": "publish-osc-blog.publish",
+          "group": "navigation"
+        }
+      ]
+    },
     "configuration": {
       "title": "",
       "properties": {
-        "osc-blog-publish.cookie": {
+        "publish-osc-blog.cookie": {
           "type": "string",
           "default": "cookie",
           "description": "osc cookie"
         },
-        "osc-blog-publish.showTip": {
-          "type": "boolean",
-          "default": true,
-          "description": "启动时显示自定义欢迎页"
+        "publish-osc-blog.mainPage": {
+          "type": "string",
+          "default": "https://my.oschina.net/yourName",
+          "description": "个人主页"
         }
       }
     }
@@ -44,14 +67,19 @@
     "test": "node ./test/runTest.js"
   },
   "devDependencies": {
-    "@types/vscode": "^1.46.0",
     "@types/glob": "^7.1.1",
     "@types/mocha": "^7.0.2",
     "@types/node": "^13.11.0",
+    "@types/vscode": "^1.46.0",
     "eslint": "^6.8.0",
     "glob": "^7.1.6",
     "mocha": "^7.1.2",
     "typescript": "^3.8.3",
     "vscode-test": "^1.3.0"
+  },
+  "dependencies": {
+    "axios": "^0.19.2",
+    "cheerio": "^1.0.0-rc.3",
+    "qs": "^6.9.4"
   }
 }
